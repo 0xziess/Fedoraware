@@ -2,9 +2,9 @@ name: MSBuild
 
 on:
   push:
-    branches: [ "0xziess-patch-2" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "0xziess-patch-2" ]
+    branches: [ "main" ]
 
 env:
   # Path to the solution file relative to the root of the project.
