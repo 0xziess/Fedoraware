@@ -2,9 +2,9 @@ name: MSBuild
 
 on:
   push:
-    branches: [ "0xziess-Patch-2" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "0xziess-Patch-2" ]
+    branches: [ "main" ]
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -19,6 +19,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    
     - uses: actions/checkout@v3
 
     - name: Add MSBuild to PATH
@@ -34,7 +35,7 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}} 
     
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v3.1.3
       with:
        name: Fedoraware
        path: ${{env.SOLUTION_FILE_PATH}}/bin/${{env.BUILD_CONFIGURATION}}/*.dll
