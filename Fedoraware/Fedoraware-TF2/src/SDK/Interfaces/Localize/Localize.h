@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Main/KeyValues/KeyValues.h"
+#include "../../src/KeyValues.h"
 
 // direct references to localized strings
 typedef unsigned long StringIndex_t;
