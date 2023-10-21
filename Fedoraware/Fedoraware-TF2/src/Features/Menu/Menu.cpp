@@ -1948,13 +1948,13 @@ void CMenu::LoadStyle()
 		style.WindowTitleAlign = ImVec2(0.5f, 0.5f); // Center window title
 		style.WindowMinSize = ImVec2(100, 100);
 		style.WindowPadding = ImVec2(0, 0);
-		style.WindowBorderSize = 1.f;
+		style.WindowBorderSize = 0.f;
 		style.WindowRounding = 8.f;
 		style.ButtonTextAlign = ImVec2(0.5f, 0.4f); // Center button text
 		style.FrameBorderSize = 0.f; // Old menu feeling
-		style.FrameRounding = 6.f;
+		style.FrameRounding = 8.f;
 		style.ChildBorderSize = 1.f;
-		style.ChildRounding = 0.f;
+		style.ChildRounding = 8.f;
 		style.GrabMinSize = 15.f;
 		style.GrabRounding = 0.f;
 		style.ScrollbarSize = 9.f;
