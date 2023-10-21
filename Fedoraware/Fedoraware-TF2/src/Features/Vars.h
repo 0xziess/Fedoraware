@@ -78,7 +78,7 @@ namespace Vars
 	CVar(ShowPlayerlist, false);
 	CVar(ShowKeybinds, false);
 	CVar(Vignette, false, IS_VISUAL);
-	CVar(CloseOnUnfocus, false, IS_VISUAL);
+	CVar(CloseOnUnfocus, true, IS_VISUAL);
 	CVar(MenuKey, 0);
 
 	SUBNAMESPACE_BEGIN(Colors)
