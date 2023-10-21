@@ -39,11 +39,11 @@ constexpr auto SIZE_FULL_WIDTH = ImVec2(-1, 20);
 /* The main menu */
 void CMenu::DrawMenu()
 {
-	ImGui::SetNextWindowSize(ImVec2(700, 700), ImGuiCond_FirstUseEver);
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, { 700, 500 });
+	ImGui::SetNextWindowSize(ImVec2(895, 859), ImGuiCond_FirstUseEver);
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, { 895, 859 });
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
 
-	if (ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar))
+	if (ImGui::Begin("MainWindow", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize))
 	{
 		const auto drawList = ImGui::GetWindowDrawList();
 		const auto windowSize = ImGui::GetWindowSize();
@@ -1949,6 +1949,7 @@ void CMenu::LoadStyle()
 		style.WindowMinSize = ImVec2(100, 100);
 		style.WindowPadding = ImVec2(0, 0);
 		style.WindowBorderSize = 1.f;
+		style.WindowRounding = 8.f;
 		style.ButtonTextAlign = ImVec2(0.5f, 0.4f); // Center button text
 		style.FrameBorderSize = 1.f; // Old menu feeling
 		style.FrameRounding = 6.f;
@@ -1966,7 +1967,7 @@ void CMenu::LoadStyle()
 		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.13f, 0.14f, 0.17f, 1.00f);
 		style.Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
 		style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-		style.Colors[ImGuiCol_FrameBg] = ImVec4(1.f, 0.22f, 0.27f, 1.00f);
+		style.Colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50);
 		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
 		style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
 		style.Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
@@ -1981,9 +1982,9 @@ void CMenu::LoadStyle()
 		style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
 		style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
 		style.Colors[ImGuiCol_Button] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
-		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.86f);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.34f);
 		style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_Header] = ImVec4(0.92f, 0.18f, 0.29f, 0.76f);
+		style.Colors[ImGuiCol_Header] = ImColor(70, 70, 70);
 		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.86f);
 		style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
 		style.Colors[ImGuiCol_Separator] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
