@@ -512,10 +512,10 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						const int drawX = DTBox.x;
 						g_Draw.String(indFont, DTBox.c, DTBox.y - fontHeight - 3, {255, 255, 255, 255}, ALIGN_CENTERHORIZONTAL, L"Ticks %d/%d", G::ShiftedTicks,
 						              Vars::Misc::CL_Move::DTTicks.Value);
-						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Color_t(43, 217, 139, 180)); //color nitro box
+						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Color_t(40, 40, 41, 180)); //color nitro box
 						if (G::ShiftedTicks && ratioCurrent)
 						{
-							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Vars::Menu::Colors::MenuAccent.Value);
+							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Color_t(43, 217, 139, 180));
 						}
 						if (G::WaitForShift)
 						{
