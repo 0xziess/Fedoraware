@@ -668,7 +668,7 @@ namespace Vars
 	CVar(AutoJump, false);
 	CVar(AutoVote, false);
 	CVar(DuckJump, false);
-	CVar(AutoStrafe, 2);
+	CVar(AutoStrafe, 0);
 	CVar(DirectionalOnlyOnMove, false);
 	CVar(Directional, false);
 	CVar(TauntSlide, false);
