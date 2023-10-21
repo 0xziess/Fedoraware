@@ -531,7 +531,7 @@ namespace Vars
 	CVar(ScopeLines, false, IS_VISUAL);
 	CVar(PickupTimers, false, IS_VISUAL);
 	CVar(RemoveZoom, false, IS_VISUAL);
-	CVar(RemovePunch, false, IS_VISUAL);
+	CVar(RemovePunch, true, IS_VISUAL);
 	CVar(CrosshairAimPos, false, IS_VISUAL);
 	CVar(ChatInfoText, false, IS_VISUAL);
 	CVar(ChatInfoChat, false, IS_VISUAL);
