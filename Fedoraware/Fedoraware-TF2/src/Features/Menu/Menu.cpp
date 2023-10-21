@@ -1951,7 +1951,7 @@ void CMenu::LoadStyle()
 		style.WindowBorderSize = 1.f;
 		style.WindowRounding = 8.f;
 		style.ButtonTextAlign = ImVec2(0.5f, 0.4f); // Center button text
-		style.FrameBorderSize = 1.f; // Old menu feeling
+		style.FrameBorderSize = 0.f; // Old menu feeling
 		style.FrameRounding = 6.f;
 		style.ChildBorderSize = 1.f;
 		style.ChildRounding = 0.f;
