@@ -82,7 +82,7 @@ namespace Vars
 	CVar(MenuKey, 0);
 
 	SUBNAMESPACE_BEGIN(Colors)
-		CVar(MenuAccent, Color_t(255, 101, 101, 255), IS_VISUAL);
+		CVar(MenuAccent, Color_t(232, 194, 90, 255), IS_VISUAL);
 	SUBNAMESPACE_END(Colors);
 
 	NAMESPACE_END(Menu);
