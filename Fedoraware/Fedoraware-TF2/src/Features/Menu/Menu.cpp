@@ -395,8 +395,30 @@ void CMenu::MenuTrigger()
 	using namespace ImGui;
 	if (BeginTable("TriggerTable", 3))
 	{
-		/* Column 1 */
 		if (TableColumnChild("TriggerCol1"))
+		{
+			SectionTitle("Global");
+			WToggle("Triggerbot", &Vars::Triggerbot::Global::Active.Value); HelpMarker("Global triggerbot master switch");
+			InputKeybind("Trigger key", Vars::Triggerbot::Global::TriggerKey); HelpMarker("The key which activates the triggerbot");
+			HelpMarker("Choose which targets the Aimbot should aim at");
+			{
+				static std::vector flagNames{ "Invulnerable", "Cloaked", "Friends", "Taunting", "Unsimulated Players", "Disguised" };
+				static std::vector flagValues{ 1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4, 1 << 5 };
+				MultiFlags(flagNames, flagValues, &Vars::Triggerbot::Global::IgnoreOptions.Value, "Ignored targets###TriggerbotIgnoredTargets");
+				HelpMarker("Choose which targets should be ignored");
+			}
+
+			SectionTitle("Autoshoot");
+			WToggle("Autoshoot###AutoshootTrigger", &Vars::Triggerbot::Shoot::Active.Value); HelpMarker("Shoots if mouse is over a target");
+			MultiCombo({ "Players", "Buildings" }, { &Vars::Triggerbot::Shoot::TriggerPlayers.Value, &Vars::Triggerbot::Shoot::TriggerBuildings.Value }, "Trigger targets");
+			HelpMarker("Choose which target the triggerbot should shoot at");
+			WToggle("Head only###TriggerHeadOnly", &Vars::Triggerbot::Shoot::HeadOnly.Value); HelpMarker("Auto shoot will only shoot if you are aiming at the head");
+			WToggle("Wait for Headshot###TriggerbotWaitForHeadshot", &Vars::Triggerbot::Shoot::WaitForHeadshot.Value); HelpMarker("Auto shoot will only shoot if the sniper is charged enough to headshot");
+			WToggle("Scoped Only###TriggerbotScopedOnly", &Vars::Triggerbot::Shoot::ScopeOnly.Value); HelpMarker("Auto shoot will only shoot while scoped");
+			WSlider("Head scale###TriggerHeadScale", &Vars::Triggerbot::Shoot::HeadScale.Value, 0.f, 1.f, "%.1f", ImGuiSliderFlags_AlwaysClamp); HelpMarker("The scale at which the auto shoot will try to shoot the targets head");
+		} EndChild();
+
+		if (TableColumnChild("TriggerCol2"))
 		{
 			SectionTitle("Autostab");
 			WToggle("Auto backstab###TriggerAutostab", &Vars::Triggerbot::Stab::Active.Value); HelpMarker("Auto backstab will attempt to backstab the target if possible");
@@ -419,8 +441,7 @@ void CMenu::MenuTrigger()
 			WSlider("Detonation radius###TriggerDetRadius", &Vars::Triggerbot::Detonate::RadiusScale.Value, 0.f, 1.f, "%.1f", ImGuiSliderFlags_AlwaysClamp); HelpMarker("The radius around the projectile that it will detonate if a player is in");
 		} EndChild();
 
-		/* Column 2 */
-		if (TableColumnChild("TriggerCol2 "))
+		if (TableColumnChild("TriggerCol3"))
 		{
 			SectionTitle("Autoblast");
 			WToggle("Autoblast###Triggreairblast", &Vars::Triggerbot::Blast::Active.Value); HelpMarker("Auto airblast master switch");
@@ -429,12 +450,9 @@ void CMenu::MenuTrigger()
 			WToggle("Extinguish Players###TriggerExtinguishPlayers", &Vars::Triggerbot::Blast::ExtinguishPlayers.Value); HelpMarker("Will automatically extinguish burning players");
 			WToggle("Disable on Attack###TriggerDisableOnAttack", &Vars::Triggerbot::Blast::DisableOnAttack.Value); HelpMarker("Will not air blast while attacking");
 			WSlider("FOV####AirBlastFov", &Vars::Triggerbot::Blast::Fov.Value, 0, 90, "%d", ImGuiSliderFlags_AlwaysClamp);
-		} EndChild();
 
 
-		if (TableColumnChild("TriggerCol3"))
-		{
-     		SectionTitle("Autouber");
+			SectionTitle("Autouber");
 			WToggle("Autouber###Triggeruber", &Vars::Triggerbot::Uber::Active.Value); HelpMarker("Auto uber master switch");
 			WToggle("Only uber friends", &Vars::Triggerbot::Uber::OnlyFriends.Value); HelpMarker("Auto uber will only activate if healing steam friends");
 			WToggle("Preserve self", &Vars::Triggerbot::Uber::PopLocal.Value); HelpMarker("Auto uber will activate if local player's health falls below the percentage");
@@ -453,8 +471,6 @@ void CMenu::MenuTrigger()
 			WSlider("Reaction FoV###TriggerUberReactFoV", &Vars::Triggerbot::Uber::ReactFoV.Value, 0, 90, "%d", 1); HelpMarker("Checks whether you are within a certain FoV from legit players before auto ubering.");
 			WToggle("Activate charge trigger", &Vars::Triggerbot::Uber::VoiceCommand.Value); HelpMarker("Will ubercharge regardless of anything if your target says activate charge");
 		} EndChild();
-
-
 		EndTable();
 	}
 }
