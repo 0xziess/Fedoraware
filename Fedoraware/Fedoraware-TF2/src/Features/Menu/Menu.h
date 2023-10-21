@@ -76,7 +76,7 @@ public:
 	ImColor AccentDark = { 217, 87, 87 };
 	ImColor Background = { 23, 23, 23, 250 };	// Title bar
 	ImColor BackgroundLight = { 51, 51, 56 };		// Tab bar
-	ImColor BackgroundDark = { 31, 31, 31 };		// Background
+	ImColor BackgroundDark = { 25, 25, 25 };		// Background
 	ImColor TextLight = { 240, 240, 240 };
 
 	// Fonts
