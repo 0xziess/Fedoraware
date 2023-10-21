@@ -252,6 +252,7 @@ void CMenu::MenuAimbot()
 
 			SectionTitle("Global");
 			WToggle("Aimbot", &Vars::Aimbot::Global::Active.Value); HelpMarker("Aimbot master switch");
+			ColorPickerL("Target", Vars::Colours::Target.Value);
 			InputKeybind("Aimbot key", Vars::Aimbot::Global::AimKey); HelpMarker("The key to enable aimbot");
 			WSlider("Aimbot FoV####AimbotFoV", &Vars::Aimbot::Global::AimFOV.Value, 0.f, 180.f, "%.1f", ImGuiSliderFlags_AlwaysClamp);
 			ColorPickerL("Aimbot FOV circle", Vars::Colours::FOVCircle.Value);
@@ -1430,7 +1431,6 @@ void CMenu::SettingsWindow()
 		/* General Menu Settings */
 		if (CollapsingHeader("Menu Settings"))
 		{
-			if (ColorPicker("Menu Color", Vars::Menu::Colors::MenuAccent.Value)) { LoadStyle(); } SameLine(); Text("Menu Color");
 			if (Checkbox("Old Design", &Vars::Menu::ModernDesign.Value)) { LoadStyle(); }
 			Checkbox("Close Menu on Unfocus", &Vars::Menu::CloseOnUnfocus.Value);
 
