@@ -1981,9 +1981,9 @@ void CMenu::LoadStyle()
 		style.Colors[ImGuiCol_CheckMark] = ImVec4(0.71f, 0.22f, 0.27f, 1.00f);
 		style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
 		style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_Button] = ImVec4(209, 162, 77, 0.14f);
-		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(209, 162, 77, 0.34f);
-		style.Colors[ImGuiCol_ButtonActive] = ImVec4(209, 162, 77, 1.00f);
+		style.Colors[ImGuiCol_Button] = ImVec4(209, 162, 77, 87);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(209, 162, 77, 134);
+		style.Colors[ImGuiCol_ButtonActive] = ImVec4(209, 162, 77, 201);
 		style.Colors[ImGuiCol_Header] = ImColor(50, 50, 50, 255);
 		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.86f);
 		style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
