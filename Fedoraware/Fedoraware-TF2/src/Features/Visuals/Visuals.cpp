@@ -508,17 +508,11 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 				{
 				case 1:
 					{
-						g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Vars::Colours::DtOutline.Value);
-						g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color1, color2, true);
-						break;
-					}
-				case 2:
-					{
 						const auto fontHeight = Vars::Fonts::FONT_INDICATORS::nTall.Value;
 						const int drawX = DTBox.x;
 						g_Draw.String(indFont, DTBox.c, DTBox.y - fontHeight - 3, {255, 255, 255, 255}, ALIGN_CENTERHORIZONTAL, L"Ticks %d/%d", G::ShiftedTicks,
 						              Vars::Misc::CL_Move::DTTicks.Value);
-						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Vars::Colours::DtOutline.Value);
+						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Color_t(43, 217, 139, 180)); //color nitro box
 						if (G::ShiftedTicks && ratioCurrent)
 						{
 							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Vars::Menu::Colors::MenuAccent.Value);
@@ -529,7 +523,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						}
 						break;
 					}
-				case 3:
+				case 2:
 					{
 						g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Vars::Colours::DtOutline.Value); //	draw the outline
 						g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w - 2, DTBox.h - 2, {28, 29, 38, 255}); //	draw the background
@@ -554,7 +548,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						}
 						break;
 					}
-				case 4:
+				case 3:
 					{
 						if (G::ShiftedTicks == 0 || G::Recharging)
 						{
@@ -571,7 +565,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						}
 						break;
 					}
-				case 5:
+				case 4:
 					{
 						g_Draw.String(indFont, DTBox.c, DTBox.y - 3, {255, 255, 255, 255}, ALIGN_CENTERHORIZONTAL, L"%i/%i", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
 						break;
