@@ -1050,7 +1050,7 @@ void CMenu::MenuVisuals()
 				WSlider("Z", &Vars::Visuals::VMOffsets.Value.z, -45.f, 45.f);
 
 				SectionTitle("DT Bar");
-				WCombo("DT indicator style", &Vars::Misc::CL_Move::DTBarStyle.Value, { "Off", "Nitro", "Rijin" }); HelpMarker("What style the bar should draw in.");
+				WCombo("DT indicator style", &Vars::Misc::CL_Move::DTBarStyle.Value, { "Off", "Nitro", "Rijin", "SEOwned"}); HelpMarker("What style the bar should draw in.");
 				Text("Charging Gradient");
 				ColorPickerL("DT charging right", Vars::Colours::DTBarIndicatorsCharging.Value.endColour);
 				ColorPickerL("DT charging left", Vars::Colours::DTBarIndicatorsCharging.Value.startColour, 1);
