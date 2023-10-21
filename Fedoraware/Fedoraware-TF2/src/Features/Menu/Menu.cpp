@@ -1431,7 +1431,7 @@ void CMenu::SettingsWindow()
 		/* General Menu Settings */
 		if (CollapsingHeader("Menu Settings"))
 		{
-			if (ColorPicker("Menu accent", Vars::Menu::Colors::MenuAccent.Value)) { LoadStyle(); } SameLine(); Text("Menu accent");
+			if (ColorPicker("Menu Color", Vars::Menu::Colors::MenuAccent.Value)) { LoadStyle(); } SameLine(); Text("Menu Color");
 			if (Checkbox("Old Design", &Vars::Menu::ModernDesign.Value)) { LoadStyle(); }
 			Checkbox("Close Menu on Unfocus", &Vars::Menu::CloseOnUnfocus.Value);
 
