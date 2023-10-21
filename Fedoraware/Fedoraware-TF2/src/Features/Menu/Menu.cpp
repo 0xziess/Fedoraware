@@ -1964,7 +1964,7 @@ void CMenu::LoadStyle()
 		ImVec4* colors = style.Colors;
 		style.Colors[ImGuiCol_Text] = ImVec4(238, 201, 116, 255);
 		style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
-		style.Colors[ImGuiCol_WindowBg] = ImVec4(255, 255, 255, 255);
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(50, 50, 50, 255);
 		style.Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
 		style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 		style.Colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50, 255);
