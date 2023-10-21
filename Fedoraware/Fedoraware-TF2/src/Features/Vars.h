@@ -72,8 +72,8 @@ namespace Vars
 {
 	NAMESPACE_BEGIN(Menu);
 
-	CVar(CheatName, std::string("Fedoraware"), IS_VISUAL);
-	CVar(CheatPrefix, std::string("[FeD]"), IS_VISUAL);
+	CVar(CheatName, std::string("saturn."), IS_VISUAL);
+	CVar(CheatPrefix, std::string("[saturn]"), IS_VISUAL);
 	CVar(ModernDesign, false, IS_VISUAL);
 	CVar(ShowPlayerlist, false);
 	CVar(ShowKeybinds, false);
@@ -764,8 +764,8 @@ namespace Vars
 	SUBNAMESPACE_END(CheaterDetection);
 
 	SUBNAMESPACE_BEGIN(CL_Move)
-		CVar(Enabled, false)
-		CVar(Doubletap, false)
+		CVar(Enabled, true)
+		CVar(Doubletap, true)
 		CVar(SafeTick, false)
 		CVar(SafeTickAirOverride, false)
 		CVar(PassiveRecharge, 0)
@@ -782,11 +782,11 @@ namespace Vars
 		CVar(RetainBlastJump, false)
 		CVar(UnchokeOnAttack, true)
 		CVar(RechargeWhileDead, false)
-		CVar(AutoRecharge, false) //H
-		CVar(AntiWarp, false) //H
-		CVar(DTMode, 0) // 0 - On Key, 1 - Always DT, 2 - Disable on key, 3 - Disabled
+		CVar(AutoRecharge, true) //H
+		CVar(AntiWarp, true) //H
+		CVar(DTMode, 1) // 0 - On Key, 1 - Always DT, 2 - Disable on key, 3 - Disabled
 		CVar(DTBarStyle, 3)
-		CVar(DTTicks, 21)
+		CVar(DTTicks, 19)
 		CVar(WaitForDT, false)
 		CVar(Fakelag, false)
 		CVar(FakelagMode, 0) // 0 - plain, 1 - random
