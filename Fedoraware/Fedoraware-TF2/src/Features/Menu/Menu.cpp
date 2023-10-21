@@ -249,11 +249,10 @@ void CMenu::MenuAimbot()
 		/* Column 1 */
 		if (TableColumnChild("AimbotCol1"))
 		{
-			ImGui::SetCursorPos(ImVec2(400, 100));
-			ImGui::Button("Test", ImVec2(25, 25));
 
 			SectionTitle("Global");
 			WToggle("Aimbot", &Vars::Aimbot::Global::Active.Value); HelpMarker("Aimbot master switch");
+			ColorPickerL("Target", Vars::Colours::Target.Value);
 			InputKeybind("Aimbot key", Vars::Aimbot::Global::AimKey); HelpMarker("The key to enable aimbot");
 			WSlider("Aimbot FoV####AimbotFoV", &Vars::Aimbot::Global::AimFOV.Value, 0.f, 180.f, "%.1f", ImGuiSliderFlags_AlwaysClamp);
 			ColorPickerL("Aimbot FOV circle", Vars::Colours::FOVCircle.Value);
@@ -486,7 +485,6 @@ void CMenu::MenuVisuals()
 				}
 
 				SectionTitle("Player ESP");
-				ColorPickerL("Target", Vars::Colours::Target.Value);
 				WToggle("Player ESP###EnablePlayerESP", &Vars::ESP::Players::Active.Value); HelpMarker("Will draw useful information/indicators on players");
 				WToggle("Name ESP###PlayerNameESP", &Vars::ESP::Players::Name.Value); HelpMarker("Will draw the players name");
 				WToggle("Custom Name Color", &Vars::ESP::Players::NameCustom.Value); HelpMarker("Custom color for name esp");
@@ -1771,75 +1769,7 @@ void CMenu::SettingsWindow()
 	PopStyleVar(2);
 }
 
-void CMenu::DebugMenu()
-{
-	using namespace ImGui;
-	if (!ShowDebugMenu) { return; }
 
-	PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12, 12));
-	PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(200, 200));
-
-	ImGui::SetNextWindowSize({ 400.f, 0.f });
-	if (Begin("Debug", &ShowDebugMenu, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse))
-	{
-		const auto& pLocal = g_EntityCache.GetLocal();
-
-		Checkbox("Show Debug info", &Vars::Debug::DebugInfo.Value);
-		Checkbox("Console Logging", &Vars::Debug::Logging.Value);
-		Checkbox("Allow secure servers", I::AllowSecureServers);
-
-		bool* m_bPendingPingRefresh = reinterpret_cast<bool*>(I::TFGCClientSystem + 828);
-		Checkbox("Pending Ping Refresh", m_bPendingPingRefresh);
-
-		if (Button("Update Discord RPC"))
-		{
-			F::DiscordRPC.Update();
-		}
-
-		// Particle tester
-		if (CollapsingHeader("Particles"))
-		{
-			static std::string particleName = "ping_circle";
-
-			InputText("Particle name", &particleName);
-			if (Button("Dispatch") && pLocal != nullptr)
-			{
-				Particles::DispatchParticleEffect(particleName.c_str(), pLocal->GetAbsOrigin(), { });
-			}
-		}
-
-		End();
-	}
-
-	PopStyleVar(2);
-}
-
-/* Window for the camera feature */
-void CMenu::DrawCameraWindow()
-{
-	if (I::EngineClient->IsInGame() && Vars::Visuals::CameraMode.Value != 0)
-	{
-		// Draw the camera window
-		ImGui::SetNextWindowSize({ static_cast<float>(F::CameraWindow.ViewRect.w), static_cast<float>(F::CameraWindow.ViewRect.h) }, ImGuiCond_FirstUseEver);
-		ImGui::SetNextWindowPos({ static_cast<float>(F::CameraWindow.ViewRect.x), static_cast<float>(F::CameraWindow.ViewRect.y) }, ImGuiCond_FirstUseEver);
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.f, 0.f, 0.f, 0.1f));
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, { 60.f, 60.f });
-		if (ImGui::Begin("Camera", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus))
-		{
-			const ImVec2 winPos = ImGui::GetWindowPos();
-			const ImVec2 winSize = ImGui::GetWindowSize();
-
-			F::CameraWindow.ViewRect.x = static_cast<int>(winPos.x);
-			F::CameraWindow.ViewRect.y = static_cast<int>(winPos.y);
-			F::CameraWindow.ViewRect.w = static_cast<int>(winSize.x);
-			F::CameraWindow.ViewRect.h = static_cast<int>(winSize.y);
-
-			ImGui::End();
-		}
-		ImGui::PopStyleVar();
-		ImGui::PopStyleColor();
-	}
-}
 
 
 void CMenu::DrawCritDrag()
@@ -1979,14 +1909,12 @@ void CMenu::Render(IDirect3DDevice9* pDevice)
 	if (IsOpen)
 	{
 		DrawMenu();
-		DrawCameraWindow();
 		AddDraggable("Conditions", Vars::Visuals::OnScreenConditions.Value, Vars::Visuals::DrawOnScreenConditions.Value, true);
 		AddDraggable("Ping", Vars::Visuals::OnScreenPing.Value, Vars::Visuals::DrawOnScreenPing.Value, true);
 		AddDraggable("DT Bar", Vars::Misc::CL_Move::DTIndicator.Value, Vars::Misc::CL_Move::DTBarStyle.Value, true);
 		AddDraggable("Crits", Vars::CritHack::IndicatorPos.Value, Vars::CritHack::Indicators.Value, true);
 
 		SettingsWindow();
-		DebugMenu();
 		F::MaterialEditor.Render();
 		F::PlayerList.Render();
 		F::Pong.Render();
@@ -2009,7 +1937,6 @@ void CMenu::LoadStyle()
 
 		ItemWidth = 120.f;
 
-		// https://raais.github.io/ImStudio/
 		Accent = ImGui::ColorToVec(Vars::Menu::Colors::MenuAccent.Value);
 		AccentDark = ImColor(Accent.Value.x * 0.8f, Accent.Value.y * 0.8f, Accent.Value.z * 0.8f, Accent.Value.w);
 
