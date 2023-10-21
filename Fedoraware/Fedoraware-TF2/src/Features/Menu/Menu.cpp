@@ -1771,7 +1771,75 @@ void CMenu::SettingsWindow()
 	PopStyleVar(2);
 }
 
+void CMenu::DebugMenu()
+{
+	using namespace ImGui;
+	if (!ShowDebugMenu) { return; }
 
+	PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(12, 12));
+	PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(200, 200));
+
+	ImGui::SetNextWindowSize({ 400.f, 0.f });
+	if (Begin("Debug", &ShowDebugMenu, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse))
+	{
+		const auto& pLocal = g_EntityCache.GetLocal();
+
+		Checkbox("Show Debug info", &Vars::Debug::DebugInfo.Value);
+		Checkbox("Console Logging", &Vars::Debug::Logging.Value);
+		Checkbox("Allow secure servers", I::AllowSecureServers);
+
+		bool* m_bPendingPingRefresh = reinterpret_cast<bool*>(I::TFGCClientSystem + 828);
+		Checkbox("Pending Ping Refresh", m_bPendingPingRefresh);
+
+		if (Button("Update Discord RPC"))
+		{
+			F::DiscordRPC.Update();
+		}
+
+		// Particle tester
+		if (CollapsingHeader("Particles"))
+		{
+			static std::string particleName = "ping_circle";
+
+			InputText("Particle name", &particleName);
+			if (Button("Dispatch") && pLocal != nullptr)
+			{
+				Particles::DispatchParticleEffect(particleName.c_str(), pLocal->GetAbsOrigin(), { });
+			}
+		}
+
+		End();
+	}
+
+	PopStyleVar(2);
+}
+
+/* Window for the camera feature */
+void CMenu::DrawCameraWindow()
+{
+	if (I::EngineClient->IsInGame() && Vars::Visuals::CameraMode.Value != 0)
+	{
+		// Draw the camera window
+		ImGui::SetNextWindowSize({ static_cast<float>(F::CameraWindow.ViewRect.w), static_cast<float>(F::CameraWindow.ViewRect.h) }, ImGuiCond_FirstUseEver);
+		ImGui::SetNextWindowPos({ static_cast<float>(F::CameraWindow.ViewRect.x), static_cast<float>(F::CameraWindow.ViewRect.y) }, ImGuiCond_FirstUseEver);
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.f, 0.f, 0.f, 0.1f));
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, { 60.f, 60.f });
+		if (ImGui::Begin("Camera", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus))
+		{
+			const ImVec2 winPos = ImGui::GetWindowPos();
+			const ImVec2 winSize = ImGui::GetWindowSize();
+
+			F::CameraWindow.ViewRect.x = static_cast<int>(winPos.x);
+			F::CameraWindow.ViewRect.y = static_cast<int>(winPos.y);
+			F::CameraWindow.ViewRect.w = static_cast<int>(winSize.x);
+			F::CameraWindow.ViewRect.h = static_cast<int>(winSize.y);
+
+			ImGui::End();
+		}
+		ImGui::PopStyleVar();
+		ImGui::PopStyleColor();
+	}
+}
 
 
 void CMenu::DrawCritDrag()
