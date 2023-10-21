@@ -1962,43 +1962,29 @@ void CMenu::LoadStyle()
 		style.ItemSpacing = ImVec2(12.f, 8.f);
 
 		ImVec4* colors = style.Colors;
-		style.Colors[ImGuiCol_Text] = ImVec4(238, 201, 116, 255);
-		style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
-		style.Colors[ImGuiCol_WindowBg] = ImVec4(50, 50, 50, 255);
-		style.Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
-		style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
-		style.Colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50, 255);
-		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
-		style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
-		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.20f, 0.22f, 0.27f, 0.75f);
-		style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.47f);
-		style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
-		style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.09f, 0.15f, 0.16f, 1.00f);
-		style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
-		style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_CheckMark] = ImVec4(0.71f, 0.22f, 0.27f, 1.00f);
-		style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
-		style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_Button] = ImVec4(209, 162, 77, 87);
-		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(209, 162, 77, 134);
-		style.Colors[ImGuiCol_ButtonActive] = ImVec4(209, 162, 77, 201);
-		style.Colors[ImGuiCol_Header] = ImColor(50, 50, 50, 255);
-		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.86f);
-		style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_Separator] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
-		style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
-		style.Colors[ImGuiCol_SeparatorActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.47f, 0.77f, 0.83f, 0.04f);
-		style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
-		style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_PlotLines] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
-		style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
-		style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
-		style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.92f, 0.18f, 0.29f, 0.43f);
-		style.Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
+		colors[ImGuiCol_Border] = ImColor(110, 110, 128);
+		colors[ImGuiCol_WindowBg] = Background;
+		colors[ImGuiCol_TitleBg] = BackgroundDark;
+		colors[ImGuiCol_TitleBgActive] = BackgroundLight;
+		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.10f, 0.10f, 0.15f, 0.4f);
+		colors[ImGuiCol_Button] = BackgroundLight;
+		colors[ImGuiCol_ButtonHovered] = ImColor(69, 69, 77);
+		colors[ImGuiCol_ButtonActive] = ImColor(82, 79, 87);
+		colors[ImGuiCol_PopupBg] = BackgroundDark;
+		colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50);
+		colors[ImGuiCol_FrameBgHovered] = ImColor(60, 60, 60);
+		colors[ImGuiCol_FrameBgActive] = ImColor(70, 70, 70);
+		colors[ImGuiCol_CheckMark] = Accent;
+		colors[ImGuiCol_Text] = TextLight;
+
+		colors[ImGuiCol_SliderGrab] = Accent;
+		colors[ImGuiCol_SliderGrabActive] = AccentDark;
+		colors[ImGuiCol_ResizeGrip] = Accent;
+		colors[ImGuiCol_ResizeGripActive] = Accent;
+		colors[ImGuiCol_ResizeGripHovered] = Accent;
+		colors[ImGuiCol_Header] = ImColor(70, 70, 70);
+		colors[ImGuiCol_HeaderActive] = ImColor(40, 40, 40);
+		colors[ImGuiCol_HeaderHovered] = ImColor(60, 60, 60);
 
 
 		// Alternative Designs
