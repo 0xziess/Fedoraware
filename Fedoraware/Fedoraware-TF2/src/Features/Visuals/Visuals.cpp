@@ -571,10 +571,10 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					}
 				case 4:
 				{
-					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Vars::Colours::DtOutline.Value); //	draw the outline
-					g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w - 2, DTBox.h + 5, { 28, 29, 38, 200 }); //	draw the background
+					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, color4); //	draw the outline
+					g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w + 2, DTBox.h + 5, { 0, 0, 255, 200 }); //	draw the background
 					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color3, color4, true);
-					g_Draw.String(indFont, DTBox.x + 2, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
+					g_Draw.String(indFont, DTBox.x + 6, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
 
 					if (G::ShiftedTicks == 0) // chargless
 					{
@@ -590,7 +590,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					}
 					else // ready
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w, DTBox.y - 10, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w + 6, DTBox.y - 10, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					break;
 				}
