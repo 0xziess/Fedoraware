@@ -574,7 +574,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, color4); //	draw the outline
 					g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w + 2, DTBox.h + 5, { 0, 0, 255, 200 }); //	draw the background
 					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color3, color4, true);
-					g_Draw.String(indFont, DTBox.x + 6, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
+					g_Draw.String(indFont, DTBox.x + 6, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"Charge");
 
 					if (G::ShiftedTicks == 0) // chargless
 					{
