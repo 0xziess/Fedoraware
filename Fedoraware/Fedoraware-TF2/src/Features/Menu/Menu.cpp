@@ -1973,6 +1973,10 @@ void CMenu::LoadStyle()
 		style.WindowPadding = ImVec2(0, 0);
 		style.WindowBorderSize = 0.f;
 		style.WindowRounding = 8.f;
+		style.FrameBorderSize = 0.f;
+		style.FrameRounding = 8.f;
+		style.ChildBorderSize = 0.f;
+		style.ChildRounding = 8.f;
 		style.ButtonTextAlign = ImVec2(0.5f, 0.4f); // Center button text
 		style.GrabMinSize = 15.f;
 		style.GrabRounding = 8.f;
