@@ -54,7 +54,7 @@ MAKE_HOOK(CBaseHudChat_ChatPrintf, Utils::GetVFuncPtr(I::ClientModeShared->m_pCh
 
 		if (iPlayerIndex == I::EngineClient->GetLocalPlayer())
 		{
-			chatFlag = { Vars::Colours::Local.Value.to_hex_alpha(), "[You]" };
+			chatFlag = { Vars::Colours::Local.Value.to_hex_alpha(), "[Saturn]" };
 			flagSet = true;
 		}
 		else if (g_EntityCache.IsFriend(iPlayerIndex))
