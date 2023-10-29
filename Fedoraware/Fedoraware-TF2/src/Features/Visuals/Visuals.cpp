@@ -491,17 +491,21 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 				ratioInterp = g_Draw.EaseIn(ratioInterp, ratioCurrent, 0.95f);
 				Math::Clamp(ratioInterp, 0.00f, 1.00f);
 
-				static Color_t color1, color2;
+				static Color_t color1, color2, color3, color4;
 
 				if (G::WaitForShift)
 				{
 					color1 = Vars::Colours::DTBarIndicatorsCharging.Value.startColour;
 					color2 = Vars::Colours::DTBarIndicatorsCharging.Value.endColour;
+					color3 = { 20, 20, 20, 255 };
+					color4 = { 230, 85, 131, 255 };
 				}
 				else
 				{
 					color1 = Vars::Colours::DTBarIndicatorsCharged.Value.startColour;
 					color2 = Vars::Colours::DTBarIndicatorsCharged.Value.endColour;
+					color3 = { 20, 20, 20, 255 };
+					color4 = { 230, 85, 131, 255 };
 				}
 
 				switch (Vars::Misc::CL_Move::DTBarStyle.Value)
@@ -515,7 +519,7 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						g_Draw.RoundedBoxStatic(DTBox.x, DTBox.y, DTBox.w, DTBox.h, 4, Color_t(40, 40, 41, 180)); //color nitro box
 						if (G::ShiftedTicks && ratioCurrent)
 						{
-							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, Color_t(43, 217, 139, 180));
+							g_Draw.RoundedBoxStatic(DTBox.x + 2, DTBox.y + 2, ratioCurrent * (DTBox.w - 4), DTBox.h - 4, 4, color1);
 						}
 						if (G::WaitForShift)
 						{
@@ -566,12 +570,30 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 						break;
 					}
 				case 4:
+				{
+					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, Vars::Colours::DtOutline.Value); //	draw the outline
+					g_Draw.Rect(DTBox.x + 1, DTBox.y + 1, DTBox.w - 2, DTBox.h + 5, { 28, 29, 38, 200 }); //	draw the background
+					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color3, color4, true);
+					g_Draw.String(indFont, DTBox.x + 2, DTBox.y - 10, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
+
+					if (G::ShiftedTicks == 0) // chargless
 					{
-						g_Draw.String(indFont, DTBox.c, DTBox.y - 3, {255, 255, 255, 255}, ALIGN_CENTERHORIZONTAL, L"%i/%i", G::ShiftedTicks, Vars::Misc::CL_Move::DTTicks.Value);
-						break;
+						g_Draw.String(indFont, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
-				//hhhs0j — Today at 15:19
-				//Add a dt indicator but only with numbers
+					else if (G::Recharging) // charging 
+					{
+						g_Draw.String(indFont, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+					}
+					else if (G::WaitForShift) // waiting
+					{
+						g_Draw.String(indFont, DTBox.x + DTBox.w, DTBox.y - 10, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+					}
+					else // ready
+					{
+						g_Draw.String(indFont, DTBox.x + DTBox.w, DTBox.y - 10, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
+					}
+					break;
+				}
 				}
 			}
 		}
