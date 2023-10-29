@@ -571,25 +571,25 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					}
 				case 4:
 				{
-					g_Draw.Rect(DTBox.x, DTBox.y - 20, DTBox.w, DTBox.h + 20, { 45, 45, 45, 200 }); //	draw the background
+					g_Draw.Rect(DTBox.x, DTBox.y - 20, DTBox.w, DTBox.h + 20, { 20, 20, 20, 200 }); //	draw the background
 					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color3, color4, true);
-					g_Draw.String(indFont, DTBox.x + 5, DTBox.y - 11, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"Charge");
+					g_Draw.String(indFont, DTBox.x + 5, DTBox.y - 13, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"Charge");
 
 					if (G::ShiftedTicks == 0) // chargless
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 13, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else if (G::Recharging) // charging 
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 13, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else if (G::WaitForShift) // waiting
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 13, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else // ready
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 13, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					break;
 				}
