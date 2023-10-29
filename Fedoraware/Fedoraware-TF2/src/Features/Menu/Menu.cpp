@@ -395,8 +395,30 @@ void CMenu::MenuTrigger()
 	using namespace ImGui;
 	if (BeginTable("TriggerTable", 3))
 	{
-		/* Column 1 */
-		if (TableColumnChild("TriggerCol1"))
+                if (TableColumnChild("TriggerCol1"))
+		{
+			SectionTitle("Global");
+			WToggle("Triggerbot", &Vars::Triggerbot::Global::Active.Value); HelpMarker("Global triggerbot master switch");
+			InputKeybind("Trigger key", Vars::Triggerbot::Global::TriggerKey); HelpMarker("The key which activates the triggerbot");
+			HelpMarker("Choose which targets the Aimbot should aim at");
+			{
+				static std::vector flagNames{ "Invulnerable", "Cloaked", "Friends", "Taunting", "Unsimulated Players", "Disguised" };
+				static std::vector flagValues{ 1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4, 1 << 5 };
+				MultiFlags(flagNames, flagValues, &Vars::Triggerbot::Global::IgnoreOptions.Value, "Ignored targets###TriggerbotIgnoredTargets");
+				HelpMarker("Choose which targets should be ignored");
+			}
+
+			SectionTitle("Autoshoot");
+			WToggle("Autoshoot###AutoshootTrigger", &Vars::Triggerbot::Shoot::Active.Value); HelpMarker("Shoots if mouse is over a target");
+			MultiCombo({ "Players", "Buildings" }, { &Vars::Triggerbot::Shoot::TriggerPlayers.Value, &Vars::Triggerbot::Shoot::TriggerBuildings.Value }, "Trigger targets");
+			HelpMarker("Choose which target the triggerbot should shoot at");
+			WToggle("Head only###TriggerHeadOnly", &Vars::Triggerbot::Shoot::HeadOnly.Value); HelpMarker("Auto shoot will only shoot if you are aiming at the head");
+			WToggle("Wait for Headshot###TriggerbotWaitForHeadshot", &Vars::Triggerbot::Shoot::WaitForHeadshot.Value); HelpMarker("Auto shoot will only shoot if the sniper is charged enough to headshot");
+			WToggle("Scoped Only###TriggerbotScopedOnly", &Vars::Triggerbot::Shoot::ScopeOnly.Value); HelpMarker("Auto shoot will only shoot while scoped");
+			WSlider("Head scale###TriggerHeadScale", &Vars::Triggerbot::Shoot::HeadScale.Value, 0.f, 1.f, "%.1f", ImGuiSliderFlags_AlwaysClamp); HelpMarker("The scale at which the auto shoot will try to shoot the targets head");
+		} EndChild();
+			
+		if (TableColumnChild("TriggerCol2"))
 		{
 			SectionTitle("Autostab");
 			WToggle("Auto backstab###TriggerAutostab", &Vars::Triggerbot::Stab::Active.Value); HelpMarker("Auto backstab will attempt to backstab the target if possible");
@@ -420,7 +442,7 @@ void CMenu::MenuTrigger()
 		} EndChild();
 
 		/* Column 2 */
-		if (TableColumnChild("TriggerCol2 "))
+		if (TableColumnChild("TriggerCol3 "))
 		{
 			SectionTitle("Autoblast");
 			WToggle("Autoblast###Triggreairblast", &Vars::Triggerbot::Blast::Active.Value); HelpMarker("Auto airblast master switch");
@@ -432,7 +454,7 @@ void CMenu::MenuTrigger()
 		} EndChild();
 
 
-		if (TableColumnChild("TriggerCol3"))
+		if (TableColumnChild("TriggerCol4"))
 		{
      		SectionTitle("Autouber");
 			WToggle("Autouber###Triggeruber", &Vars::Triggerbot::Uber::Active.Value); HelpMarker("Auto uber master switch");
@@ -2111,7 +2133,7 @@ void CMenu::Init(IDirect3DDevice9* pDevice)
 		VerdanaBold = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\verdanab.ttf)", 18.0f, &fontConfig, fontRange);
 
 		SectionFont = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\verdana.ttf)", 16.0f, &fontConfig, fontRange);
-		TitleFont = io.Fonts->AddFontFromFileTTF("(C:\\Windows\\Fonts\\times.ttf)", 20.0f, &fontConfig, fontRange);
+		TitleFont = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\times.ttf)", 20.0f, &fontConfig, fontRange);
 
 		constexpr ImWchar iconRange[]{ ICON_MIN_MD, ICON_MAX_MD, 0 };
 		ImFontConfig iconConfig;
