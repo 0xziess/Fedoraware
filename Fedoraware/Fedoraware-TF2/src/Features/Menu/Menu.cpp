@@ -237,6 +237,7 @@ void CMenu::DrawTabbar()
 	ImGui::PopFont();
 }
 
+
 #pragma region Tabs
 /* Tab: Aimbot */
 void CMenu::MenuAimbot()
@@ -249,12 +250,11 @@ void CMenu::MenuAimbot()
 		/* Column 1 */
 		if (TableColumnChild("AimbotCol1"))
 		{
-
 			SectionTitle("Global");
 			WToggle("Aimbot", &Vars::Aimbot::Global::Active.Value); HelpMarker("Aimbot master switch");
 			ColorPickerL("Target", Vars::Colours::Target.Value);
 			InputKeybind("Aimbot key", Vars::Aimbot::Global::AimKey); HelpMarker("The key to enable aimbot");
-			WSlider("Aimbot FoV####AimbotFoV", &Vars::Aimbot::Global::AimFOV.Value, 0.f, 180.f, "%.1f", ImGuiSliderFlags_AlwaysClamp);
+			ImGui::SliderFloat("Aimbot FoV####AimbotFoV", &Vars::Aimbot::Global::AimFOV.Value, 0.f, 180.f, "%.1f", ImGuiSliderFlags_AlwaysClamp);
 			ColorPickerL("Aimbot FOV circle", Vars::Colours::FOVCircle.Value);
 			WToggle("Autoshoot###AimbotAutoshoot", &Vars::Aimbot::Global::AutoShoot.Value); HelpMarker("Automatically shoot when a target is found");
 			MultiCombo({ "Players", "Buildings", "Stickies", "NPCs", "Bombs" }, { &Vars::Aimbot::Global::AimPlayers.Value, &Vars::Aimbot::Global::AimBuildings.Value, &Vars::Aimbot::Global::AimStickies.Value, &Vars::Aimbot::Global::AimNPC.Value, &Vars::Aimbot::Global::AimBombs.Value }, "Aim targets");
@@ -395,30 +395,8 @@ void CMenu::MenuTrigger()
 	using namespace ImGui;
 	if (BeginTable("TriggerTable", 3))
 	{
+		/* Column 1 */
 		if (TableColumnChild("TriggerCol1"))
-		{
-			SectionTitle("Global");
-			WToggle("Triggerbot", &Vars::Triggerbot::Global::Active.Value); HelpMarker("Global triggerbot master switch");
-			InputKeybind("Trigger key", Vars::Triggerbot::Global::TriggerKey); HelpMarker("The key which activates the triggerbot");
-			HelpMarker("Choose which targets the Aimbot should aim at");
-			{
-				static std::vector flagNames{ "Invulnerable", "Cloaked", "Friends", "Taunting", "Unsimulated Players", "Disguised" };
-				static std::vector flagValues{ 1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4, 1 << 5 };
-				MultiFlags(flagNames, flagValues, &Vars::Triggerbot::Global::IgnoreOptions.Value, "Ignored targets###TriggerbotIgnoredTargets");
-				HelpMarker("Choose which targets should be ignored");
-			}
-
-			SectionTitle("Autoshoot");
-			WToggle("Autoshoot###AutoshootTrigger", &Vars::Triggerbot::Shoot::Active.Value); HelpMarker("Shoots if mouse is over a target");
-			MultiCombo({ "Players", "Buildings" }, { &Vars::Triggerbot::Shoot::TriggerPlayers.Value, &Vars::Triggerbot::Shoot::TriggerBuildings.Value }, "Trigger targets");
-			HelpMarker("Choose which target the triggerbot should shoot at");
-			WToggle("Head only###TriggerHeadOnly", &Vars::Triggerbot::Shoot::HeadOnly.Value); HelpMarker("Auto shoot will only shoot if you are aiming at the head");
-			WToggle("Wait for Headshot###TriggerbotWaitForHeadshot", &Vars::Triggerbot::Shoot::WaitForHeadshot.Value); HelpMarker("Auto shoot will only shoot if the sniper is charged enough to headshot");
-			WToggle("Scoped Only###TriggerbotScopedOnly", &Vars::Triggerbot::Shoot::ScopeOnly.Value); HelpMarker("Auto shoot will only shoot while scoped");
-			WSlider("Head scale###TriggerHeadScale", &Vars::Triggerbot::Shoot::HeadScale.Value, 0.f, 1.f, "%.1f", ImGuiSliderFlags_AlwaysClamp); HelpMarker("The scale at which the auto shoot will try to shoot the targets head");
-		} EndChild();
-
-		if (TableColumnChild("TriggerCol2"))
 		{
 			SectionTitle("Autostab");
 			WToggle("Auto backstab###TriggerAutostab", &Vars::Triggerbot::Stab::Active.Value); HelpMarker("Auto backstab will attempt to backstab the target if possible");
@@ -441,7 +419,8 @@ void CMenu::MenuTrigger()
 			WSlider("Detonation radius###TriggerDetRadius", &Vars::Triggerbot::Detonate::RadiusScale.Value, 0.f, 1.f, "%.1f", ImGuiSliderFlags_AlwaysClamp); HelpMarker("The radius around the projectile that it will detonate if a player is in");
 		} EndChild();
 
-		if (TableColumnChild("TriggerCol3"))
+		/* Column 2 */
+		if (TableColumnChild("TriggerCol2 "))
 		{
 			SectionTitle("Autoblast");
 			WToggle("Autoblast###Triggreairblast", &Vars::Triggerbot::Blast::Active.Value); HelpMarker("Auto airblast master switch");
@@ -450,9 +429,12 @@ void CMenu::MenuTrigger()
 			WToggle("Extinguish Players###TriggerExtinguishPlayers", &Vars::Triggerbot::Blast::ExtinguishPlayers.Value); HelpMarker("Will automatically extinguish burning players");
 			WToggle("Disable on Attack###TriggerDisableOnAttack", &Vars::Triggerbot::Blast::DisableOnAttack.Value); HelpMarker("Will not air blast while attacking");
 			WSlider("FOV####AirBlastFov", &Vars::Triggerbot::Blast::Fov.Value, 0, 90, "%d", ImGuiSliderFlags_AlwaysClamp);
+		} EndChild();
 
 
-			SectionTitle("Autouber");
+		if (TableColumnChild("TriggerCol3"))
+		{
+     		SectionTitle("Autouber");
 			WToggle("Autouber###Triggeruber", &Vars::Triggerbot::Uber::Active.Value); HelpMarker("Auto uber master switch");
 			WToggle("Only uber friends", &Vars::Triggerbot::Uber::OnlyFriends.Value); HelpMarker("Auto uber will only activate if healing steam friends");
 			WToggle("Preserve self", &Vars::Triggerbot::Uber::PopLocal.Value); HelpMarker("Auto uber will activate if local player's health falls below the percentage");
@@ -471,6 +453,8 @@ void CMenu::MenuTrigger()
 			WSlider("Reaction FoV###TriggerUberReactFoV", &Vars::Triggerbot::Uber::ReactFoV.Value, 0, 90, "%d", 1); HelpMarker("Checks whether you are within a certain FoV from legit players before auto ubering.");
 			WToggle("Activate charge trigger", &Vars::Triggerbot::Uber::VoiceCommand.Value); HelpMarker("Will ubercharge regardless of anything if your target says activate charge");
 		} EndChild();
+
+
 		EndTable();
 	}
 }
@@ -1019,7 +1003,7 @@ void CMenu::MenuVisuals()
 				{
 					G::ShouldUpdateMaterialCache = true;
 				}
-				MultiCombo({ "Scope", "Zoom", "Disguises", "Taunts", "Interpolation", "Input Delay", "View Punch", "MOTD", "Screen Effects", "Angle Forcing", "Ragdolls", "Screen Overlays", "DSP", "Convar Queries"}, {&Vars::Visuals::RemoveScope.Value, &Vars::Visuals::RemoveZoom.Value, &Vars::Visuals::RemoveDisguises.Value, &Vars::Visuals::RemoveTaunts.Value, &Vars::Misc::DisableInterpolation.Value, &Vars::Misc::FixInputDelay.Value, &Vars::Visuals::RemovePunch.Value, &Vars::Visuals::RemoveMOTD.Value, &Vars::Visuals::RemoveScreenEffects.Value, &Vars::Visuals::PreventForcedAngles.Value, &Vars::Visuals::RemoveRagdolls.Value, &Vars::Visuals::RemoveScreenOverlays.Value, &Vars::Visuals::RemoveDSP.Value, &Vars::Visuals::RemoveConvarQueries.Value}, "Removals");
+				MultiCombo({ "Scope", "Zoom", "Disguises", "Taunts", "Interpolation", "Input Delay", "View Punch", "MOTD", "Angle Forcing", "Ragdolls", "Screen Overlays", "DSP", "Convar Queries" }, { &Vars::Visuals::RemoveScope.Value, &Vars::Visuals::RemoveZoom.Value, &Vars::Visuals::RemoveDisguises.Value, &Vars::Visuals::RemoveTaunts.Value, &Vars::Misc::DisableInterpolation.Value, &Vars::Misc::FixInputDelay.Value, &Vars::Visuals::RemovePunch.Value, &Vars::Visuals::RemoveMOTD.Value, &Vars::Visuals::RemoveScreenEffects.Value, &Vars::Visuals::PreventForcedAngles.Value, &Vars::Visuals::RemoveRagdolls.Value, &Vars::Visuals::RemoveScreenOverlays.Value, &Vars::Visuals::RemoveDSP.Value, &Vars::Visuals::RemoveConvarQueries.Value }, "Removals");
 				ColorPickerL("Particle Color", Vars::Colours::ParticleColor.Value);
 				if (Vars::Visuals::HalloweenSpellFootsteps.Value)
 				{
@@ -1071,7 +1055,7 @@ void CMenu::MenuVisuals()
 				WSlider("Z", &Vars::Visuals::VMOffsets.Value.z, -45.f, 45.f);
 
 				SectionTitle("DT Bar");
-				WCombo("DT indicator style", &Vars::Misc::CL_Move::DTBarStyle.Value, { "Off", "Nitro", "Rijin", "SEOwned"}); HelpMarker("What style the bar should draw in.");
+				WCombo("DT indicator style", &Vars::Misc::CL_Move::DTBarStyle.Value, { "Off", "Nitro", "Rijin", "SEOwned", "MoneyBot"}); HelpMarker("What style the bar should draw in.");
 				Text("Charging Gradient");
 				ColorPickerL("DT charging right", Vars::Colours::DTBarIndicatorsCharging.Value.endColour);
 				ColorPickerL("DT charging left", Vars::Colours::DTBarIndicatorsCharging.Value.startColour, 1);
@@ -1452,10 +1436,8 @@ void CMenu::SettingsWindow()
 		/* General Menu Settings */
 		if (CollapsingHeader("Menu Settings"))
 		{
-			if (Checkbox("Old Design", &Vars::Menu::ModernDesign.Value)) { LoadStyle(); }
-			Checkbox("Close Menu on Unfocus", &Vars::Menu::CloseOnUnfocus.Value);
 
-			SetNextItemWidth(100);
+		    SetNextItemWidth(100);
 			InputKeybind("Extra Menu key", Vars::Menu::MenuKey, true, true, "None");
 		}
 
@@ -1853,10 +1835,13 @@ void CMenu::DrawKeybinds()
 	ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.f, 0.f, 0.f, 0.5f));
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 4.f, 4.f });
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.f);
-	ImGui::SetNextWindowSize({ 200.f, 0.f });
+	ImGui::SetNextWindowSize({ 300.f, 0.f });
 
 	if (ImGui::Begin("Keybinds", nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize))
 	{
+		ImGui::SetCursorPos(ImVec2(50, 5));
+		ImGui::Text("Binds");
+
 		auto drawOption = [](const char* name, bool active)
 			{
 				ImGui::Text(name);
@@ -1964,43 +1949,57 @@ void CMenu::LoadStyle()
 		style.WindowTitleAlign = ImVec2(0.5f, 0.5f); // Center window title
 		style.WindowMinSize = ImVec2(100, 100);
 		style.WindowPadding = ImVec2(0, 0);
-		style.WindowBorderSize = 0.f;
+		style.WindowBorderSize = 1.f;
 		style.WindowRounding = 8.f;
 		style.ButtonTextAlign = ImVec2(0.5f, 0.4f); // Center button text
-		style.FrameBorderSize = 0.f;
-		style.FrameRounding = 8.f;
-		style.ChildBorderSize = 0.f;
-		style.ChildRounding = 8.f;
+		style.FrameBorderSize = 1.f; // Old menu feeling
+		style.FrameRounding = 6.f;
+		style.ChildBorderSize = 1.f;
+		style.ChildRounding = 0.f;
 		style.GrabMinSize = 15.f;
-		style.GrabRounding = 8.f;
+		style.GrabRounding = 0.f;
 		style.ScrollbarSize = 9.f;
-		style.ScrollbarRounding = 8.f;
+		style.ScrollbarRounding = 6.f;
 		style.ItemSpacing = ImVec2(12.f, 8.f);
 
 		ImVec4* colors = style.Colors;
-		colors[ImGuiCol_Border] = ImColor(110, 110, 128);
-		colors[ImGuiCol_WindowBg] = Background;
-		colors[ImGuiCol_TitleBg] = BackgroundDark;
-		colors[ImGuiCol_TitleBgActive] = BackgroundLight;
-		colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.10f, 0.10f, 0.15f, 0.4f);
-		colors[ImGuiCol_Button] = BackgroundLight;
-		colors[ImGuiCol_ButtonHovered] = ImColor(69, 69, 77);
-		colors[ImGuiCol_ButtonActive] = ImColor(82, 79, 87);
-		colors[ImGuiCol_PopupBg] = BackgroundDark;
-		colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50);
-		colors[ImGuiCol_FrameBgHovered] = ImColor(60, 60, 60);
-		colors[ImGuiCol_FrameBgActive] = ImColor(70, 70, 70);
-		colors[ImGuiCol_CheckMark] = Accent;
-		colors[ImGuiCol_Text] = TextLight;
-
-		colors[ImGuiCol_SliderGrab] = Accent;
-		colors[ImGuiCol_SliderGrabActive] = AccentDark;
-		colors[ImGuiCol_ResizeGrip] = Accent;
-		colors[ImGuiCol_ResizeGripActive] = Accent;
-		colors[ImGuiCol_ResizeGripHovered] = Accent;
-		colors[ImGuiCol_Header] = ImColor(70, 70, 70);
-		colors[ImGuiCol_HeaderActive] = ImColor(40, 40, 40);
-		colors[ImGuiCol_HeaderHovered] = ImColor(60, 60, 60);
+		style.Colors[ImGuiCol_Text] = ImVec4(238, 201, 116, 255);
+		style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(255, 255, 255, 255);
+		style.Colors[ImGuiCol_Border] = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
+		style.Colors[ImGuiCol_BorderShadow] = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
+		style.Colors[ImGuiCol_FrameBg] = ImColor(50, 50, 50);
+		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
+		style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_TitleBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
+		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.20f, 0.22f, 0.27f, 0.75f);
+		style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_MenuBarBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.47f);
+		style.Colors[ImGuiCol_ScrollbarBg] = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
+		style.Colors[ImGuiCol_ScrollbarGrab] = ImVec4(0.09f, 0.15f, 0.16f, 1.00f);
+		style.Colors[ImGuiCol_ScrollbarGrabHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
+		style.Colors[ImGuiCol_ScrollbarGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_CheckMark] = ImVec4(0.71f, 0.22f, 0.27f, 1.00f);
+		style.Colors[ImGuiCol_SliderGrab] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
+		style.Colors[ImGuiCol_SliderGrabActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_Button] = ImVec4(0.47f, 0.77f, 0.83f, 0.14f);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.34f);
+		style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_Header] = ImColor(50, 50, 50, 255);
+		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.86f);
+		style.Colors[ImGuiCol_HeaderActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_Separator] = ImVec4(0.14f, 0.16f, 0.19f, 1.00f);
+		style.Colors[ImGuiCol_SeparatorHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
+		style.Colors[ImGuiCol_SeparatorActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_ResizeGrip] = ImVec4(0.47f, 0.77f, 0.83f, 0.04f);
+		style.Colors[ImGuiCol_ResizeGripHovered] = ImVec4(0.92f, 0.18f, 0.29f, 0.78f);
+		style.Colors[ImGuiCol_ResizeGripActive] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_PlotLines] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
+		style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
+		style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
+		style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.92f, 0.18f, 0.29f, 0.43f);
+		style.Colors[ImGuiCol_PopupBg] = ImVec4(0.20f, 0.22f, 0.27f, 0.9f);
 
 
 		// Alternative Designs
@@ -2112,7 +2111,7 @@ void CMenu::Init(IDirect3DDevice9* pDevice)
 		VerdanaBold = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\verdanab.ttf)", 18.0f, &fontConfig, fontRange);
 
 		SectionFont = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\verdana.ttf)", 16.0f, &fontConfig, fontRange);
-		TitleFont = io.Fonts->AddFontFromFileTTF(R"(C:\Windows\Fonts\times.ttf)", 20.0f, &fontConfig, fontRange);
+		TitleFont = io.Fonts->AddFontFromFileTTF("(C:\\Windows\\Fonts\\times.ttf)", 20.0f, &fontConfig, fontRange);
 
 		constexpr ImWchar iconRange[]{ ICON_MIN_MD, ICON_MAX_MD, 0 };
 		ImFontConfig iconConfig;
