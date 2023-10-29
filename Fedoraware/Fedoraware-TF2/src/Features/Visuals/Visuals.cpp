@@ -497,15 +497,15 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 				{
 					color1 = Vars::Colours::DTBarIndicatorsCharging.Value.startColour;
 					color2 = Vars::Colours::DTBarIndicatorsCharging.Value.endColour;
-					color3 = { 20, 20, 20, 255 };
-					color4 = { 230, 85, 131, 255 };
+					color3 = { 46, 46, 46, 255 };
+					color4 = { 255, 161, 161, 255 };
 				}
 				else
 				{
 					color1 = Vars::Colours::DTBarIndicatorsCharged.Value.startColour;
 					color2 = Vars::Colours::DTBarIndicatorsCharged.Value.endColour;
-					color3 = { 20, 20, 20, 255 };
-					color4 = { 230, 85, 131, 255 };
+					color3 = { 46, 46, 46, 255 };
+					color4 = { 255, 161, 161, 255 };
 				}
 
 				switch (Vars::Misc::CL_Move::DTBarStyle.Value)
@@ -571,26 +571,25 @@ void CVisuals::DrawTickbaseInfo(CBaseEntity* pLocal)
 					}
 				case 4:
 				{
-					g_Draw.OutlinedRect(DTBox.x, DTBox.y, DTBox.w, DTBox.h, color4); //	draw the outline
-					g_Draw.Rect(DTBox.x, DTBox.y - 15, DTBox.w + 2, DTBox.h + 15, { 20, 20, 20, 200 }); //	draw the background
+					g_Draw.Rect(DTBox.x, DTBox.y - 15, DTBox.w, DTBox.h + 20, { 20, 20, 20, 200 }); //	draw the background
 					g_Draw.GradientRectWH(DTBox.x + 1, DTBox.y + 1, ratioInterp * (DTBox.w - 2), DTBox.h - 2, color3, color4, true);
-					g_Draw.String(indFont, DTBox.x + 3, DTBox.y - 11, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"CHARGE");
+					g_Draw.String(indFont, DTBox.x + 5, DTBox.y - 11, { 255, 255, 255, 255 }, ALIGN_DEFAULT, L"Charge");
 
 					if (G::ShiftedTicks == 0) // chargless
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 4, DTBox.y - 11, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else if (G::Recharging) // charging 
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 4, DTBox.y - 11, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else if (G::WaitForShift) // waiting
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 4, DTBox.y - 11, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 255, 55, 40, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					else // ready
 					{
-						g_Draw.String(indFont, DTBox.x + DTBox.w - 4, DTBox.y - 11, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
+						g_Draw.String(indFont, DTBox.x + DTBox.w - 5, DTBox.y - 12, { 66, 255, 0, 255 }, ALIGN_REVERSE, L"READY");
 					}
 					break;
 				}
